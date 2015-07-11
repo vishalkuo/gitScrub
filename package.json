@@ -1,0 +1,15 @@
+{
+  "name": "gitScrub",
+  "version": "1.0.0",
+  "description": "scrub git to save time",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.1",
+    "restler": "^3.3.0"
+  }
+}

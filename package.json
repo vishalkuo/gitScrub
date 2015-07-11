@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.1",
+    "prompt": "^0.2.14",
     "restler": "^3.3.0"
   }
 }

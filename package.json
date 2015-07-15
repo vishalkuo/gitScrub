@@ -4,7 +4,8 @@
   "description": "scrub git to save time",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "app.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,9 @@
     "express": "^4.13.1",
     "prompt": "^0.2.14",
     "restler": "^3.3.0"
+  },
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/vishalkuo/gitScrub"
   }
 }

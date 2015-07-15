@@ -1,15 +1,26 @@
 var gitscrub = require('./lib/gitscrub');
 var secret = require('./lib/secret');
-
+var RSVP = require('rsvp');
 value = undefined;
-gitscrub.authenticate(secret.username, secret.password, function(resultData){
+
+
+
+var promise = new RSVP.Promise(function(resolve, reject){
+    gitscrub.authenticate(secret.username, secret.password, function(resultData){
     value = resultData;
-    //console.log(value);
+    if (value != null){
+        console.log("here")
+        resolve(value)
+    }else{
+        reject(Error("It Broke"))
+    }
+    });
+})
+
+promise.then(function(result){
     gitscrub.getAllRepos(function(repoData){
-//        console.log(JSON.stringify(resultData[0]['id']))
         for (var result in repoData){
             console.log(repoData[result]['id'])
         }
     })
-});
-
+})

@@ -12,9 +12,10 @@
   "dependencies": {
     "express": "^4.13.1",
     "prompt": "^0.2.14",
-    "restler": "^3.3.0"
+    "restler": "^3.3.0",
+    "rsvp": "^3.0.18"
   },
-  "repository":{
+  "repository": {
     "type": "git",
     "url": "https://github.com/vishalkuo/gitScrub"
   }

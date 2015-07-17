@@ -33,7 +33,10 @@ promise.then(function(result) {
             var buf = new Buffer(b64string, 'base64')
             //console.log(buf.toString('utf-8'))
             gitscrub.grabAllReadmes(function(res){
-                console.log(res)
+                for (obj in res){
+                    console.log(obj)
+                    console.log(res[obj].substring(0,80))
+                }
             })
         })
     })

@@ -31,9 +31,12 @@ promise.then(function(result) {
         gitscrub.grabReadMeAtRepo(objArr[0], function(result){
             var b64string = result['content']
             var buf = new Buffer(b64string, 'base64')
-            console.log(buf.toString('utf-8'))
+            //console.log(buf.toString('utf-8'))
             gitscrub.grabAllReadmes(function(res){
-                
+                // for (obj in res){
+                //     console.log(obj)
+                // }
+                console.log(res)
             })
         })
     });

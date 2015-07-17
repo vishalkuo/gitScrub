@@ -13,7 +13,7 @@ var promise = new RSVP.Promise(function(resolve, reject) {
         } else {
             reject(Error("It Broke"))
         }
-    });
+    })
 })
 
 promise.then(function(result) {
@@ -36,9 +36,9 @@ promise.then(function(result) {
                 // for (obj in res){
                 //     console.log(obj)
                 // }
-                console.log(res)
+                //console.log(res)
             })
         })
-    });
+    })
 })
 

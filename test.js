@@ -22,17 +22,19 @@ promise.then(function(result) {
         for (var result in repoData) {
             objArr.push(repoData[result]['name'])
         }
-        gitscrub.grabAllReadmes(function(res){
-                for (obj in res){
-                    // console.log(obj)
-                    // console.log(res[obj].substring(0,80))
-                }
-            })
+        // gitscrub.grabAllReadmes(function(res){
+        //         for (obj in res){
+        //             // console.log(obj)
+        //             // console.log(res[obj].substring(0,80))
+        //         }
+        //     })
     
         gitscrub.grabReadMeAtRepo(objArr[8], function(result){
             var b64string = result['content']
             var buf = new Buffer(b64string, 'base64')
-            console.log(buf.toString('utf-8'))
+            gitscrub.parseReadMe(buf.toString('utf-8'), null, function(logValue){
+
+            })
         })
     })
 })

@@ -8,7 +8,7 @@ value = undefined;
 var promise = new RSVP.Promise(function(resolve, reject) {
     gitscrub.authenticate(secret.username, secret.password, function(resultData) {
         value = resultData;
-        if (value != null) {
+        if (value != undefined) {
             resolve(value)
         } else {
             reject(Error("It Broke"))
@@ -22,13 +22,12 @@ promise.then(function(result) {
         for (var result in repoData) {
             objArr.push(repoData[result]['name'])
         }
-        // gitscrub.grabAllReadmes(function(res){
-        //         for (obj in res){
-        //             // console.log(obj)
-        //             // console.log(res[obj].substring(0,80))
-        //         }
+        // gitscrub.grabAllReadmes(null, null, function(res) {
+        //     gitscrub.parseAllReadMes(objArr, null, function(data) {
+        //         console.log(data)
         //     })
-    
+        //})
+
         gitscrub.grabReadMeAtRepo(objArr[8], function(result){
             var b64string = result['content']
             var buf = new Buffer(b64string, 'base64')
@@ -36,6 +35,6 @@ promise.then(function(result) {
                 console.log(data)
             })
         })
+
     })
 })
-

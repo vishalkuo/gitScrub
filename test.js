@@ -53,5 +53,5 @@ objArr = []
 // 
 
 gitscrub.scrubADubDub(secret.username,   secret.password, null, function(data){
-    console.log(data[7])
+    
 })

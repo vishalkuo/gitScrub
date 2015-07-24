@@ -37,6 +37,21 @@ gitscrub.scrubadubdub(secret.username, secret.password, options, function(data){
 * Jot notes will be parsed into their own array inside of each header object. Be prepared for that
 * Headers ```###``` or longer will simply be included in the most recent header object.
 * Code blocks are not formatted yet. This is a feature that welcomes a PR. 
+* Output format is structured as follows: 
+```
+[{title: 'repo title',
+  headers:[
+      {
+        header: 'header title',
+        text: 'header text',
+        jotNotes: 'header jot notes',
+      }
+      //Rest of your headers...
+    ]
+  }
+//Rest of your repos...
+]
+```
 
 ## About
 This is a formatted readme, it will look for ```##``` headers and parse them into objects to be added to a json array. In this case, this section should be added to about. Now I'm just rambling on to fill the about section.

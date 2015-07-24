@@ -44,7 +44,7 @@ gitscrub.scrubadubdub(secret.username, secret.password, options, function(data){
       {
         header: 'header title',
         text: 'header text',
-        jotNotes: 'header jot notes',
+        jotNotes: [jotNote1, jotNote2, ...],
       }
       //Rest of your headers...
     ]

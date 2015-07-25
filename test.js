@@ -13,5 +13,8 @@ objArr = []
 //})
 
 gitscrub.authenticate(secret.username, secret.password, function(data){
-    console.log(data)
+    gitscrub.getSelRepos(gitscrub.standardFileName, function(data, err){
+        console.log(data)
+    })
 })
+

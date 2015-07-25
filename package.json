@@ -4,7 +4,7 @@
   "description": "scrub git to save time",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/test.js",
     "start": "node index.js"
   },
   "author": "",

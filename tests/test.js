@@ -30,6 +30,9 @@ describe('gitscrub', function() {
 
     //GET ALL
     describe('#getAllRepos', function() {
+        beforeEach(function(){
+            gs.reset()
+        })
             it('should return false when poorly authenticated (this shouldn\'t happen)', function(done) {
                 gs.getAllRepos({
                     username: '',
@@ -59,7 +62,7 @@ describe('gitscrub', function() {
             })
         })
     //GET SOME REPOS BASED ON FILE
-    describe('*getSomeRepos', function() {
+    describe('#getSomeRepos', function() {
         it('should throw an error when no file/incorrect file is available', function(done) {
             gs.getSelRepos('', function(data, err){
                 assert.notEqual(typeof err, 'undefined')
@@ -84,6 +87,22 @@ describe('gitscrub', function() {
             })
         })
     })
+
+    describe('#reset', function(){
+        beforeEach(function(){
+            gs.reset()
+        })
+        it('should reset all data', function(done){
+             gs.authenticate(name, pwd, function(result) {
+                assert.equal(true, gs.isAuth)
+                gs.reset()
+                assert.equal(false, gs.isAuth)
+                done()
+            })
+        })
+    })
+
+    
     
 
 })

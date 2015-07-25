@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "test.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,9 @@
     "restler": "^3.3.0",
     "rsvp": "^3.0.18"
   },
+  "devDependencies": {
+    "mocha": "^1.17.1"
+  },  
   "repository": {
     "type": "git",
     "url": "https://github.com/vishalkuo/gitScrub"

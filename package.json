@@ -1,22 +1,22 @@
 {
   "name": "gitscrub",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "scrub git to save time",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "app.js"
+    "test": "mocha tests/test.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.1",
-    "jsonfile": "^2.2.1",
     "lazy.js": "^0.4.0",
-    "prompt": "^0.2.14",
     "restler": "^3.3.0",
     "rsvp": "^3.0.18"
   },
+  "devDependencies": {
+    "mocha": "^1.17.1"
+  },  
   "repository": {
     "type": "git",
     "url": "https://github.com/vishalkuo/gitScrub"

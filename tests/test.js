@@ -2,7 +2,7 @@ var gs = require('../lib/gitscrub')
 //var secret = require('../lib/secret')
 var assert = require('assert')
 console.log("USERNAMe")
-console.log(process.env.username)
+console.log(process.env.name)
 
 describe('gitscrub', function(){
     //Authenticate for false values, true values cannot yet be done

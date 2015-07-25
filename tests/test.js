@@ -58,7 +58,7 @@ describe('gitscrub', function() {
                 })
             })
         })
-        //GET SOME
+    //GET SOME REPOS BASED ON FILE
     describe('*getSomeRepos', function() {
         it('should throw an error when no file/incorrect file is available', function(done) {
             gs.getSelRepos('', function(data, err){
@@ -66,7 +66,7 @@ describe('gitscrub', function() {
                 done()
             })
         })
-        it('should return an empty array when a good file is available', function(done){
+        it('should return an empty array when a good file is available with no data', function(done){
             gs.getSelRepos(gs.standardFileName, function(data, err){
                 assert.equal(typeof err, 'undefined')
                 assert.equal(typeof data, 'object')
@@ -74,6 +74,16 @@ describe('gitscrub', function() {
                 done()
             })
         })
+        it('should return an array with repos specified in a file with good data', function(done){
+            gs.authenticate(name, pwd, function(result){
+                gs.getSelRepos('test_repos.json', function(data, err){
+                    assert.equal(data[0], 'FuturesRevealed')
+                    assert.equal(data[1], 'gitScrub')
+                    done()
+                })
+            })
+        })
     })
+    
 
 })

@@ -4,7 +4,7 @@
   "description": "scrub git to save time",
   "main": "app.js",
   "scripts": {
-    "test": "mocha tests/test.js",
+    "test": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha tests/test.js -- -R spec",
     "start": "node index.js"
   },
   "author": "",
@@ -15,8 +15,9 @@
     "rsvp": "^3.0.18"
   },
   "devDependencies": {
+    "istanbul": "^0.3.17",
     "mocha": "^1.17.1"
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/vishalkuo/gitScrub"

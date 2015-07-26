@@ -3,6 +3,8 @@
 ## Status
 [![Build Status](https://travis-ci.org/vishalkuo/gitScrub.svg?branch=master)](https://travis-ci.org/vishalkuo/gitScrub)
 
+[![NPM](https://nodei.co/npm/gitscrub.png?compact=true)](https://nodei.co/npm/gitscrub/)
+
 ## Installation
 * In your npm project directory: ```npm install --save gitscrub```
 * In your project: ```var gs = require('gitscrub')```

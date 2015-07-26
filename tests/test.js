@@ -197,5 +197,9 @@ describe('gitscrub', function() {
 
             })
         })
+
+        after(function(){
+            gs.reset()
+        })
     })
 })

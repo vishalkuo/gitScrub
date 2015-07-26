@@ -127,7 +127,7 @@ describe('gitscrub', function() {
 
     describe('#grabReadMeAtRepo', function(){
         var repoList
-        before(function(done()){
+        before(function(done){
             gs.authenticate(name, pwd, function(result) {
                 gs.grabAllReadMes(function(readmes){
                     repoList = readmes

@@ -108,7 +108,7 @@ describe('gitscrub', function() {
             gs.reset()
         })
         it('should return all formatted readmes', function(done){
-            gs.scrubADubDub(name, pwd, null, function(result){
+            gs.scrubADubDub(name, pwd, null, function(result, err){
                 assert.equal(typeof result, 'object')
                 for(var i = 0; i < result.length; i++){
                     assert.equal(typeof result[i].headers, 'object')
@@ -116,5 +116,12 @@ describe('gitscrub', function() {
                 done()
             })
         })
+        it('should return an error object when something goes wrong', function(done){
+            gs.scrubADubDub('', null, null, function(result, err){
+                assert.equal(typeof result, 'undefined')
+                assert.equal('Bad Credentials!', err)
+                done()
+            })
+        })  
     })
 })

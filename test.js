@@ -6,11 +6,8 @@ value = undefined
 objArr = []
 
 /* istanbul ignore next */
-gitscrub.scrubADubDub(secret.username,   secret.password, null, function(data){
-    for (i = 0; i < data.length; i++){
-        console.log(data[i].title )
-        console.log(data[i].headers)
-    }
+gitscrub.scrubADubDub('',   null, null, function(data, err){
+    console.log(data)
 })
 
 // gitscrub.authenticate(secret.username, secret.password, function(data){

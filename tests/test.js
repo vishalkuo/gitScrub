@@ -129,12 +129,38 @@ describe('gitscrub', function() {
         var repoList
         before(function(done){
             gs.authenticate(name, pwd, function(result) {
-                gs.grabAllReadMes(function(readmes){
-                    repoList = readmes
-                    console.log(repoList)
+                gs.getAllRepos({
+                    username: name,
+                    password: pwd
+                }, function(result) {
+                    repoList = result
                     done()
                 })
             })
+        })
+
+        it('should be able to grab a certain repo\'s readme', function(done){
+            gs.grabReadMeAtRepo(repoList[0].name, function(result){
+                assert.equal(result.name, 'README.md')
+                assert.equal(result.path, 'README.md')
+                done()
+            })
+        })
+
+        it('should return an empty string with no readme available', function(done){
+            var index = -1
+            for (var i = 0; i < repoList.length; i++){
+                if (repoList[i].name === 'textBasedBattleShip'){
+                    index = i
+                    break
+                }
+            }
+            gs.grabReadMeAtRepo(repoList[index].name, function(result){
+                assert.equal(result.message, 'Not Found')
+                assert.equal(result.content, '')
+                done()
+            })
+        
         })
 
 

@@ -1,9 +1,11 @@
 var gs = require('../lib/gitscrub')
+var fs = require('fs')
+var path = require('path')
 var assert = require('assert')
 var secret = undefined
-try{
-    secret = require('../lib/secret')    
-}catch(e){
+try {
+    secret = require('../lib/secret')
+} catch (e) {
     console.log("SECRET WAS NOT FOUND, USING ENV VARIABLES INSTEAD")
 }
 
@@ -30,9 +32,9 @@ describe('gitscrub', function() {
 
     //GET ALL
     describe('#getAllRepos', function() {
-        beforeEach(function(){
-            gs.reset()
-        })
+            beforeEach(function() {
+                gs.reset()
+            })
             it('should return false when poorly authenticated (this shouldn\'t happen)', function(done) {
                 gs.getAllRepos({
                     username: '',
@@ -61,73 +63,76 @@ describe('gitscrub', function() {
                 })
             })
         })
-    //GET SOME REPOS BASED ON FILE
+        //GET SOME REPOS BASED ON FILE
     describe('#getSomeRepos', function() {
-        it('should throw an error when no file/incorrect file is available', function(done) {
-            gs.getSelRepos('', function(data, err){
-                assert.notEqual(typeof err, 'undefined')
-                done()
+            beforeEach(function() {
+                gs.reset()
+            })
+            it('should throw an error when no file/incorrect file is available', function(done) {
+                gs.getSelRepos('', function(data, err) {
+                    assert.notEqual(typeof err, 'undefined')
+                    done()
+                })
+            })
+            it('should return an empty array when a good file is available with no data', function(done) {
+                gs.getSelRepos(gs.standardFileName, function(data, err) {
+                    assert.equal(typeof err, 'undefined')
+                    assert.equal(typeof data, 'object')
+                    assert.equal(data.length, 0)
+                    done()
+                })
+            })
+            it('should return an array with repos specified in a file with good data', function(done) {
+                gs.authenticate(name, pwd, function(result) {
+                    gs.getSelRepos('test_repos.json', function(data, err) {
+                        assert.equal(data[0], 'FuturesRevealed')
+                        assert.equal(data[1], 'gitScrub')
+                        done()
+                    })
+                })
             })
         })
-        it('should return an empty array when a good file is available with no data', function(done){
-            gs.getSelRepos(gs.standardFileName, function(data, err){
-                assert.equal(typeof err, 'undefined')
-                assert.equal(typeof data, 'object')
-                assert.equal(data.length, 0)
-                done()
+        //Does gitscrub reset
+    describe('#reset', function() {
+            beforeEach(function() {
+                gs.reset()
             })
-        })
-        it('should return an array with repos specified in a file with good data', function(done){
-            gs.authenticate(name, pwd, function(result){
-                gs.getSelRepos('test_repos.json', function(data, err){
-                    assert.equal(data[0], 'FuturesRevealed')
-                    assert.equal(data[1], 'gitScrub')
+            it('should reset all data', function(done) {
+                gs.authenticate(name, pwd, function(result) {
+                    assert.equal(true, gs.isAuth)
+                    gs.reset()
+                    assert.equal(false, gs.isAuth)
                     done()
                 })
             })
         })
-    })
-    //Does gitscrub reset
-    describe('#reset', function(){
-        beforeEach(function(){
-            gs.reset()
-        })
-        it('should reset all data', function(done){
-             gs.authenticate(name, pwd, function(result) {
-                assert.equal(true, gs.isAuth)
-                gs.reset()
-                assert.equal(false, gs.isAuth)
-                done()
-            })
-        })
-    })
-    //Does it scrubadubdub
-    describe('#scrubadubdub', function(){
+        //Does it scrubadubdub
+    describe('#scrubadubdub', function() {
         this.timeout(30000)
-        beforeEach(function(){
+        beforeEach(function() {
             gs.reset()
         })
-        it('should return all formatted readmes', function(done){
-            gs.scrubADubDub(name, pwd, null, function(result, err){
+        it('should return all formatted readmes', function(done) {
+            gs.scrubADubDub(name, pwd, null, function(result, err) {
                 assert.equal(typeof result, 'object')
-                for(var i = 0; i < result.length; i++){
+                for (var i = 0; i < result.length; i++) {
                     assert.equal(typeof result[i].headers, 'object')
                 }
                 done()
             })
         })
-        it('should return an error object when something goes wrong', function(done){
-            gs.scrubADubDub('', null, null, function(result, err){
+        it('should return an error object when something goes wrong', function(done) {
+            gs.scrubADubDub('', null, null, function(result, err) {
                 assert.equal(typeof result, 'undefined')
                 assert.equal('Bad Credentials!', err)
                 done()
             })
-        })  
+        })
     })
 
-    describe('#grabReadMeAtRepo', function(){
+    describe('#grabReadMeAtRepo', function() {
         var repoList
-        before(function(done){
+        before(function(done) {
             gs.authenticate(name, pwd, function(result) {
                 gs.getAllRepos({
                     username: name,
@@ -139,30 +144,58 @@ describe('gitscrub', function() {
             })
         })
 
-        it('should be able to grab a certain repo\'s readme', function(done){
-            gs.grabReadMeAtRepo(repoList[0].name, function(result){
+        it('should be able to grab a certain repo\'s readme', function(done) {
+            gs.grabReadMeAtRepo(repoList[0].name, function(result) {
                 assert.equal(result.name, 'README.md')
                 assert.equal(result.path, 'README.md')
                 done()
             })
         })
 
-        it('should return an empty string with no readme available', function(done){
+        it('should return an empty string with no readme available', function(done) {
             var index = -1
-            for (var i = 0; i < repoList.length; i++){
-                if (repoList[i].name === 'textBasedBattleShip'){
+            for (var i = 0; i < repoList.length; i++) {
+                if (repoList[i].name === 'textBasedBattleShip') {
                     index = i
                     break
                 }
             }
-            gs.grabReadMeAtRepo(repoList[index].name, function(result){
+            gs.grabReadMeAtRepo(repoList[index].name, function(result) {
                 assert.equal(result.message, 'Not Found')
                 assert.equal(result.content, '')
                 done()
             })
-        
+
+        })
+    })
+
+    describe('#selectRepos', function() {
+        beforeEach(function(done) {
+            gs.reset()
+            gs.authenticate(name, pwd, function(result) {
+                done()
+            })
         })
 
+        it('should return an error when no array is provided', function(done) {
+            gs.selectRepos('test', null, function(result, err) {
+                assert.equal('Argument must be an array of repos to scrub', err)
+                assert.equal(typeof result, 'undefined')
+                done()
+            })
+        })
+        it('should write to a file when passed a name', function(done) {
+            gs.selectRepos(['AngelHack', 'summon'], null, function(result, err) {
+                assert.equal(result, true)
+                fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
+                    assert.notEqual(err, true)
+                    var reposToScrub = JSON.parse(data)
+                    assert.equal(reposToScrub.repos[0], 'AngelHack')
+                    assert.equal(reposToScrub.repos[1], 'summon')
+                    done()
+                })
 
+            })
+        })
     })
 })

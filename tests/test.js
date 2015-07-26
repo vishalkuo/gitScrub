@@ -4,7 +4,7 @@ var secret = undefined
 try{
     secret = require('../lib/secret')    
 }catch(e){
-    console.log("SECRET WAS NOT FOUND, USING ENV VARIABLES INSTEAE")
+    console.log("SECRET WAS NOT FOUND, USING ENV VARIABLES INSTEAD")
 }
 
 var name = (typeof secret === 'undefined') ? process.env.name : secret.username
@@ -87,7 +87,7 @@ describe('gitscrub', function() {
             })
         })
     })
-
+    //Does gitscrub reset
     describe('#reset', function(){
         beforeEach(function(){
             gs.reset()
@@ -101,8 +101,20 @@ describe('gitscrub', function() {
             })
         })
     })
-
-    
-    
-
+    //Does it scrubadubdub
+    describe('#scrubadubdub', function(){
+        this.timeout(30000)
+        beforeEach(function(){
+            gs.reset()
+        })
+        it('should return all formatted readmes', function(done){
+            gs.scrubADubDub(name, pwd, null, function(result){
+                assert.equal(typeof result, 'object')
+                for(var i = 0; i < result.length; i++){
+                    assert.equal(typeof result[i].headers, 'object')
+                }
+                done()
+            })
+        })
+    })
 })

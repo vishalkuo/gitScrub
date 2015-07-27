@@ -4,7 +4,8 @@
   "description": "scrub git to save time",
   "main": "app.js",
   "scripts": {
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha tests/test.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha tests/test.js -- -R spec",
+    "test-travis": "istanbul cover ./node_modules/mocha/bin/_mocha tests/test.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "start": "node index.js"
   },
   "author": "",

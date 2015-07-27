@@ -202,4 +202,25 @@ describe('gitscrub', function() {
             gs.reset()
         })
     })
+
+    describe('#options', function(){
+        beforeEach(function(){
+            gs.resetOptions
+        })
+        it('should return an empty object on resetting options', function(done){
+            gs.getOptions(function(options){
+                assert.equal(false, Object.keys(options).length)
+                done()
+            })
+        })
+
+        it('should allow for setting of options', function(done){
+            optObject = {name:'test', option: 'testOption'}
+            gs.setOptions(optObject)
+            gs.getOptions(function(options){
+                assert.deepEqual(options, optObject)
+                done()
+            })
+        })
+    })
 })

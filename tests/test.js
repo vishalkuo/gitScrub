@@ -218,7 +218,7 @@ describe('gitscrub', function() {
             optObject = {name:'test', option: 'testOption'}
             gs.setOptions(optObject)
             gs.getOptions(function(options){
-                assert.equal(options, optObject)
+                assert.deepEqual(options, optObject)
                 done()
             })
         })

@@ -222,5 +222,10 @@ describe('gitscrub', function() {
                 done()
             })
         })
+        //THROWING THIS ONE IN THERE
+        it('this is checking is undefined', function(){
+            assert.equal(true, gs.isUndefined(undefined))
+            assert.equal(false, gs.isUndefined('hello'))
+        })
     })
 })

@@ -178,14 +178,14 @@ describe('gitscrub', function() {
         })
 
         it('should return an error when no array is provided', function(done) {
-            gs.selectRepos('test', null, function(result, err) {
+            gs.selectRepos('test', null, function(err, result) {
                 assert.equal('Argument must be an array of repos to scrub', err)
-                assert.equal(typeof result, 'undefined')
+                assert.equal(result, null)
                 done()
             })
         })
         it('should write to a file when passed a name', function(done) {
-            gs.selectRepos(['AngelHack', 'summon'], null, function(result, err) {
+            gs.selectRepos(['AngelHack', 'summon'], null, function(err, result) {
                 assert.equal(result, true)
                 fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
                     assert.notEqual(err, true)

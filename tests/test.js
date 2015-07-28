@@ -75,8 +75,8 @@ describe('gitscrub', function() {
                 })
             })
             it('should return an empty array when a good file is available with no data', function(done) {
-                gs.getSelRepos(gs.standardFileName, function(data, err) {
-                    assert.equal(typeof err, 'undefined')
+                gs.getSelRepos(gs.standardFileName, function(err, data) {
+                    assert.equal(err, null)
                     assert.equal(typeof data, 'object')
                     assert.equal(data.length, 0)
                     done()
@@ -84,7 +84,7 @@ describe('gitscrub', function() {
             })
             it('should return an array with repos specified in a file with good data', function(done) {
                 gs.authenticate(name, pwd, function(result) {
-                    gs.getSelRepos('test_repos.json', function(data, err) {
+                    gs.getSelRepos('test_repos.json', function(err, data) {
                         assert.equal(data[0], 'FuturesRevealed')
                         assert.equal(data[1], 'gitScrub')
                         done()
@@ -220,6 +220,13 @@ describe('gitscrub', function() {
                     done()
                 })
 
+            })
+        })
+        it('should return an error if given a path to a nonexistent file', function(done) {
+            gs.clearSelRepos("nonexistentfile.txt", function(err, result) {
+                assert.equal(result, null)
+                assert.notEqual(err, null)
+                done()
             })
         })
     })

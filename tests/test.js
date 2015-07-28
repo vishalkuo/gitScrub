@@ -203,6 +203,27 @@ describe('gitscrub', function() {
         })
     })
 
+    describe('#clearSelRepos', function() {
+        beforeEach(function(done) {
+            gs.reset()
+            gs.authenticate(name, pwd, function(result) {
+                done()
+            })
+        })
+        it('should clear the file', function(done) {
+            gs.clearSelRepos(null, function(err, result) {
+                assert.equal(result, true)
+                fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
+                    assert.notEqual(err, true)
+                    var reposToScrub = JSON.parse(data)
+                    assert.equal(reposToScrub.repos.length, 0)
+                    done()
+                })
+
+            })
+        })
+    })
+
     describe('#options', function(){
         beforeEach(function(){
             gs.resetOptions

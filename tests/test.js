@@ -12,7 +12,6 @@ try {
 var name = (typeof secret === 'undefined') ? process.env.name : secret.username
 var pwd = (typeof secret === 'undefined') ? process.env.password : secret.password
 
-
 describe('gitscrub', function() {
     //AUTH
     describe('#authenticate', function() {
@@ -247,6 +246,14 @@ describe('gitscrub', function() {
             gs.setOptions(optObject)
             gs.getOptions(function(options){
                 assert.deepEqual(options, optObject)
+                done()
+            })
+        })
+
+        it('should allow for resetting of options', function(done){
+            gs.resetOptions()
+            gs.getOptions(function(options){
+                assert.deepEqual({}, options)
                 done()
             })
         })

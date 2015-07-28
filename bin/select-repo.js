@@ -2,8 +2,8 @@
 
 var program = require('commander')
 
-var gitscrub = require('./lib/gitscrub')
-var secret = require('./lib/secret')
+var gitscrub = require('../lib/gitscrub')
+var secret = require('../lib/secret')
 
 function list(val) {
     return val.split(',');

@@ -75,8 +75,8 @@ describe('gitscrub', function() {
                 })
             })
             it('should return an empty array when a good file is available with no data', function(done) {
-                gs.getSelRepos(gs.standardFileName, function(data, err) {
-                    assert.equal(typeof err, 'undefined')
+                gs.getSelRepos(gs.standardFileName, function(err, data) {
+                    assert.equal(err, null)
                     assert.equal(typeof data, 'object')
                     assert.equal(data.length, 0)
                     done()
@@ -84,7 +84,7 @@ describe('gitscrub', function() {
             })
             it('should return an array with repos specified in a file with good data', function(done) {
                 gs.authenticate(name, pwd, function(result) {
-                    gs.getSelRepos('test_repos.json', function(data, err) {
+                    gs.getSelRepos('test_repos.json', function(err, data) {
                         assert.equal(data[0], 'FuturesRevealed')
                         assert.equal(data[1], 'gitScrub')
                         done()
@@ -178,14 +178,14 @@ describe('gitscrub', function() {
         })
 
         it('should return an error when no array is provided', function(done) {
-            gs.selectRepos('test', null, function(result, err) {
+            gs.selectRepos('test', null, function(err, result) {
                 assert.equal('Argument must be an array of repos to scrub', err)
-                assert.equal(typeof result, 'undefined')
+                assert.equal(result, null)
                 done()
             })
         })
         it('should write to a file when passed a name', function(done) {
-            gs.selectRepos(['AngelHack', 'summon'], null, function(result, err) {
+            gs.selectRepos(['AngelHack', 'summon'], null, function(err, result) {
                 assert.equal(result, true)
                 fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
                     assert.notEqual(err, true)
@@ -200,6 +200,34 @@ describe('gitscrub', function() {
 
         after(function(){
             gs.reset()
+        })
+    })
+
+    describe('#clearSelRepos', function() {
+        beforeEach(function(done) {
+            gs.reset()
+            gs.authenticate(name, pwd, function(result) {
+                done()
+            })
+        })
+        it('should clear the file', function(done) {
+            gs.clearSelRepos(null, function(err, result) {
+                assert.equal(result, true)
+                fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
+                    assert.notEqual(err, true)
+                    var reposToScrub = JSON.parse(data)
+                    assert.equal(reposToScrub.repos.length, 0)
+                    done()
+                })
+
+            })
+        })
+        it('should return an error if given a path to a nonexistent file', function(done) {
+            gs.clearSelRepos("nonexistentfile.txt", function(err, result) {
+                assert.equal(result, null)
+                assert.notEqual(err, null)
+                done()
+            })
         })
     })
 

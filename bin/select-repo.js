@@ -12,7 +12,7 @@ function list(val) {
 program
     .version('1.1.0')
     .option('-c, --clear', 'Clear the list of packages to scrub')
-    .option('-f, --file [filename]', 'Optional file name to use in place of the default repos_to_scrub.json')
+    .option('-f, --file <filename>', 'Optional file name to use in place of the default repos_to_scrub.json')
     .option('-a, --add <repos>', 'Specify comma separated list of repos to be scrubbed', list)
 
 program.on('--help', function(){

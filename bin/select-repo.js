@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
 var program = require('commander')
-
 var gitscrub = require('../lib/gitscrub')
 var secret = require('../lib/secret')
+var pjson = require('../package.json')
 
 function list(val) {
     return val.split(',');
 }
 
 program
-    .version('1.1.0')
+    .version(pjson.version)
     .option('-c, --clear', 'Clear the list of packages to scrub')
     .option('-f, --file <filename>', 'Optional file name to use in place of the default repos_to_scrub.json')
     .option('-a, --add <repos>', 'Specify comma separated list of repos to be scrubbed', list)

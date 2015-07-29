@@ -14,6 +14,7 @@
     "commander": "^2.8.1",
     "coveralls": "^2.11.3",
     "mocha-lcov-reporter": "0.0.2",
+    "prompt": "^0.2.14",
     "restler": "^3.3.0",
     "rsvp": "^3.0.18"
   },
@@ -26,6 +27,7 @@
     "url": "https://github.com/vishalkuo/gitScrub"
   },
   "bin": {
-    "select-repo": "./bin/select-repo.js"
+    "select-repo": "./bin/select-repo.js",
+    "config-secret": "./bin/config-secret.js"
   }
 }

@@ -264,7 +264,7 @@ describe('gitscrub', function() {
         })
     })
 
-    describe('#config-readme', function(){
+    describe('#config-secret', function(){
         var initialSecret
 
         function getFile(){
@@ -277,13 +277,13 @@ describe('gitscrub', function() {
             }
             initialSecret = getFile().toString()
         })
-        it('should be able to clear a readme', function(done){
+        it('should be able to clear a secret', function(done){
             gs.configSecret({clear: true}, function(complete, err){
                 assert.equal('', getFile().toString())
                 done()
             })
         })
-        it('should be able to set a readme', function(done){
+        it('should be able to set a secret', function(done){
             gs.configSecret({set: true, username: 'testname', password: 'test'}, function(complete, err){
                 result = getFile().toString().split('\n')
                 assert.equal(result[0], 'secret = module.exports')

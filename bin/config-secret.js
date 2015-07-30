@@ -27,13 +27,13 @@ program
     .option('-l, --list', 'list the username of the current secret file (if there is one)')
 
 program.on('--help', function() {
-    console.log('  Examples:');
-    console.log('');
-    console.log('    $ config-secret -c');
-    console.log('    $ config-secret -s vishalkuo');
-    console.log('    $ config-secret -a repo1,repo2,repo3');
-    console.log('');
-});
+    console.log('  Examples:')
+    console.log('')
+    console.log('    $ config-secret -c')
+    console.log('    $ config-secret -s vishalkuo')
+    console.log('    $ config-secret -l')
+    console.log('')
+})
 
 program.parse(process.argv)
 

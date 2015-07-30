@@ -263,4 +263,37 @@ describe('gitscrub', function() {
             assert.equal(false, gs.isUndefined('hello'))
         })
     })
+
+    describe('#config-secret', function(){
+        var initialSecret
+
+        function getFile(){
+            return fs.readFileSync(path.join(__dirname, '../lib/secret.js'))
+        }
+
+        before(function(){
+            if (secret === undefined){
+                fs.writeFileSync(path.join(__dirname, '../lib/secret.js'), '')
+            }
+            initialSecret = getFile().toString()
+        })
+        it('should be able to clear a secret', function(done){
+            gs.configSecret({clear: true}, function(complete, err){
+                assert.equal('', getFile().toString())
+                done()
+            })
+        })
+        it('should be able to set a secret', function(done){
+            gs.configSecret({set: true, username: 'testname', password: 'test'}, function(complete, err){
+                result = getFile().toString().split('\n')
+                assert.equal(result[0], 'secret = module.exports')
+                assert.equal(result[1], 'secret.username = \'testname\'')
+                assert.equal(result[2], 'secret.password = \'test\'')
+                done()
+            })
+        })
+        after(function(){
+            fs.writeFileSync(path.join(__dirname, '../lib/secret.js'), initialSecret)
+        })
+    })
 })

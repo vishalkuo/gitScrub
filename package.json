@@ -27,6 +27,7 @@
     "url": "https://github.com/vishalkuo/gitScrub"
   },
   "bin": {
-    "select-repo": "./bin/select-repo.js"
+    "select-repo": "./bin/select-repo.js",
+    "config-secret": "./bin/config-secret.js"
   }
 }

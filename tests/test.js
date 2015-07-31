@@ -2,6 +2,7 @@ var gs = require('../lib/gitscrub')
 var fs = require('fs')
 var path = require('path')
 var assert = require('assert')
+var sort = require('../lib/sort.json')
 var secret = undefined
 try {
     secret = require('../lib/secret')
@@ -294,6 +295,40 @@ describe('gitscrub', function() {
         })
         after(function(){
             fs.writeFileSync(path.join(__dirname, '../lib/secret.js'), initialSecret)
+        })
+    })
+    describe('#quickSort', function(){
+        var initialSettings = sort
+        var unsortedArray = ['Cars', 'Apples', 'Bananas']
+        var sortedArray = ['Apples', 'Bananas', 'Cars']
+        function updateSort(sortObject){
+            fs.writeFileSync(path.join(__dirname,'../lib', 'sort.json'),
+                JSON.stringify(sortObject, null, 2))
+        }
+        
+        it ('shouldn\'t sort when not required to ', function(done){
+            sort.enabled = false
+            updateSort(sort)
+            gs.sort(unsortedArray, function(err, result){
+                assert.equal(err, false)
+                assert.equal(result, unsortedArray)
+                done()
+            })
+        })
+
+        it('should sort when the wizards require it to', function(done){
+            sort.enabled = true
+            updateSort(sort)
+            gs.sort(unsortedArray, function(err, result){
+                assert.equal(err, false)
+                assert.deepEqual(result, sortedArray)
+                done()
+            })
+        })
+
+        after(function(){
+            sort = initialSettings
+            updateSort(sort)
         })
     })
 })

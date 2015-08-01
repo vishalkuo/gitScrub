@@ -1,11 +1,5 @@
 {
   "enabled": true,
-  "alphabetical": {
-    "enabled": true,
-    "reverse": true
-  },
-  "custom": {
-    "enabled": true,
-    "order": {}
-  }
+  "alphabetical": true,
+  "reverse": false
 }

@@ -297,10 +297,16 @@ describe('gitscrub', function() {
             fs.writeFileSync(path.join(__dirname, '../lib/secret.js'), initialSecret)
         })
     })
-    describe('#quickSort', function(){
-        var initialSettings = sort
+    describe('#sort', function(){
+        var initialSettings
+        before(function(){
+            //Deep copy
+            initialSettings = JSON.parse(JSON.stringify(sort))
+        })
+        
         var unsortedArray = ['Cars', 'Apples', 'Bananas']
         var sortedArray = ['Apples', 'Bananas', 'Cars']
+        var reverseSorted = ['Cars', 'Bananas', 'Apples']
         function updateSort(sortObject){
             fs.writeFileSync(path.join(__dirname,'../lib', 'sort.json'),
                 JSON.stringify(sortObject, null, 2))
@@ -318,10 +324,23 @@ describe('gitscrub', function() {
 
         it('should sort when the wizards require it to', function(done){
             sort.enabled = true
+            sort.reverse = false
             updateSort(sort)
             gs.sort(unsortedArray, function(err, result){
                 assert.equal(err, false)
                 assert.deepEqual(result, sortedArray)
+                done()
+            })
+        })
+
+        it('should reverse when we want it to reverse', function(done){
+            sort.enabled = true
+            sort.alphabetical = true
+            sort.reverse = true
+            updateSort(sort)
+            gs.sort(unsortedArray, function(err, result){
+                assert.equal(err,false)
+                assert.deepEqual(result, reverseSorted)
                 done()
             })
         })

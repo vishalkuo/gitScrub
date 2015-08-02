@@ -304,9 +304,9 @@ describe('gitscrub', function() {
             initialSettings = JSON.parse(JSON.stringify(sort))
         })
         
-        var unsortedArray = ['Cars', 'Apples', 'Bananas']
-        var sortedArray = ['Apples', 'Bananas', 'Cars']
-        var reverseSorted = ['Cars', 'Bananas', 'Apples']
+        var unsortedArray = [{title: 'Cars'}, {title: 'Apples'}, {title: 'Bananas'}]
+        var sortedArray = [{title: 'Apples'}, {title: 'Bananas'}, {title: 'Cars'}]
+        var reverseSorted = [{title: 'Cars'}, {title: 'Bananas'}, {title: 'Apples'}]
         function updateSort(sortObject){
             fs.writeFileSync(path.join(__dirname,'../lib', 'sort.json'),
                 JSON.stringify(sortObject, null, 2))
@@ -343,6 +343,13 @@ describe('gitscrub', function() {
                 assert.deepEqual(result, reverseSorted)
                 done()
             })
+        })
+
+        it('should allow for setting options', function(done){
+            gs.setSortOptions({"testing": true})
+            testObj = JSON.parse(fs.readFileSync(path.join(__dirname,'../lib', 'sort.json')))
+            assert.equal(testObj.testing, true)
+            done()
         })
 
         after(function(){

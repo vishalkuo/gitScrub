@@ -1,0 +1,12 @@
+h1,h2,h4 {
+    font-family: "Lato", "Sans-Serif";
+    text-align: center;
+}
+
+p{
+    font-family: "Lato", "Sans-Serif";
+    font-weight: 300;
+    text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
+}

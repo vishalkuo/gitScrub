@@ -1,8 +1,4 @@
-[
-  {
-    "title": "",
-    "headers": []
-  },
+data = [
   {
     "title": "arduinoBrakelightBackpack",
     "headers": [
@@ -218,52 +214,6 @@
       {
         "header": "Notes",
         "text": "In ```node_modules/ignoreModule```, there are no modules visible. This is an ignored file as it contains a Waterloo API token as seen in ```index.js``````javascript var apiToken = ignore.ignoreModule();``` If you wish to request a token, it can be done so [here](https://api.uwaterloo.ca/).",
-        "jotNotes": []
-      }
-    ]
-  },
-  {
-    "title": "Material Design Lite",
-    "headers": [
-      {
-        "header": "Use MDL on your site?",
-        "text": "**This document is targeted at developers that will contribute to or compileMDL. If you are looking to use MDL on your website or web app please head to[getmdl.io](http://getmdl.io).**",
-        "jotNotes": []
-      },
-      {
-        "header": "Browser Support",
-        "text": "| IE9 | IE10 | IE11 | Chrome | Opera | Firefox | Safari | Chrome (Android) | Mobile Safari ||-----|------|------|--------|-------|---------|--------|------------------|---------------|| B   | A    | A    | A      | A     | A       | A      | A                | A             |A-grade browsers are fully supported. B-grade browsers will gracefully degradeto our CSS-only experience.",
-        "jotNotes": []
-      },
-      {
-        "header": "Getting Started",
-        "text": "### Download / CloneClone the repo using Git:```bashgit clone --bare https://github.com/google/material-design-lite.git```Alternatively you can [download](https://github.com/google/material-design-lite/archive/master.zip)this repository.Windows users, if you have trouble compiling due to line endings then make sure you configure git to checkout the repository with `lf` (unix) line endings. This can be achieved by setting `core.eol`.```git config core.eol lfgit config core.autocrlf input```> Remember, the master branch is considered unstable. Do not use this in production. Use a tagged state of the repository, npm, or bower for stability!### What's includedIn the repo you'll find the following directories and files.| File/Folder     | Provides                                       ||-----------------|------------------------------------------------|| CONTRIBUTING.md | MDL contribution guidelines.                   || docs            | Files for the documentation site.              || gulpfile.js     | gulp configuration for MDL.                    || LICENSE         | Project license information.                   || package.json    | npm package information.                       || README.md       | Details for quickly understanding the project. || src             | Source code for MDL components.                || templates       | Example templates.                             || test            | Project test files.                            |### BuildTo get started modifying the components or the docs, first install the necessarydependencies, from the root of the project:```bashnpm install && npm install -g gulp```Next, run the following one-liner to compile the components and the docs andspawn a local instance of the documentation site:```bashgulp serve```Most changes made to files inside the `src` or the `docs` directory will causethe page to reload. This page can also be loaded up on physical devices thanksto BrowserSync.To build a production version of the components, run:```bashgulp```This will clean the `dist` folder and rebuild the assets for serving.### TemplatesThe `templates/` subdirectory contains a few exemplary usages of MDL. Templateshave their own, quasi-separate gulp pipeline and can be compiled with`gulp templates`. The templates use the vanilla MDL JS and[themed](http://www.getmdl.io/customize/index.html) CSS files. Extraneous stylesare kept in a separate CSS file. Use `gulp serve` to take a look at thetemplates:> Templates are not officially supported in IE9 and legacy browsers that do notpass the minimum-requirements defined in our[cutting-the-mustard test](https://github.com/google/material-design-lite/blob/master/src/mdlComponentHandler.js#L262-L275).",
-        "jotNotes": [
-          "[Blog Template](http://www.getmdl.io/templates/blog)",
-          "[Dashboard Template](http://www.getmdl.io/templates/dashboard)",
-          "[Text Heavy Webpage Template](http://www.getmdl.io/templates/text-only)",
-          "[Stand Alone Article Template](http://www.getmdl.io/templates/article)",
-          "[Android.com MDL Skin Template](http://www.getmdl.io/templates/android-dot-com)"
-        ]
-      },
-      {
-        "header": "Versioning",
-        "text": "For transparency into our release cycle and in striving to maintain backwardcompatibility, Material Design Lite is maintained under[the Semantic Versioning guidelines](http://semver.org/). Sometimes we screw up,but we'll adhere to those rules whenever possible.",
-        "jotNotes": []
-      },
-      {
-        "header": "Feature requests",
-        "text": "If you find MDL doesn't contain a particular component you think would beuseful, please check the issue tracker in case work has already started on it.If not, you can request a [new component](https://github.com/Google/material-design-lite/issues/new?title=[Component%20Request]%20{Component}&body=Please%20include:%0A*%20Description%0A*%20Material%20Design%20Spec%20link%0A*%20Use%20Case%28s%29).Please keep in mind that one of the goals of MDL is to adhere to the MaterialDesign specs and therefore some requests might not be within the scope of thisproject.",
-        "jotNotes": []
-      },
-      {
-        "header": "Do you include any features that a framework comes with?",
-        "text": "Material Design Lite is focused on delivering a vanilla CSS/JS/HTML library ofcomponents. We are not a framework. If you are building a single-page app andrequire features like two-way data-binding, templating, CSS scoping and soforth, we recommend trying out the excellent [Polymer](http://polymer-project.org) project.",
-        "jotNotes": []
-      },
-      {
-        "header": "License",
-        "text": "© Google, 2015. Licensed under an [Apache-2](https://github.com/google/material-design-lite/blob/master/LICENSE) license.",
         "jotNotes": []
       }
     ]

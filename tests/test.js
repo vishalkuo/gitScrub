@@ -145,7 +145,7 @@ describe('gitscrub', function() {
         })
 
         it('should be able to grab a certain repo\'s readme', function(done) {
-            gs.grabReadMeAtRepo(repoList[0].name, function(result) {
+            gs.grabReadMeAtRepo(repoList[1].name, function(result) {
                 assert.equal(result.name, 'README.md')
                 assert.equal(result.path, 'README.md')
                 done()

@@ -357,4 +357,29 @@ describe('gitscrub', function() {
             updateSort(sort)
         })
     })
+    describe('#filter', function(){
+        var initialObject = 
+        [
+            {
+                'title': 'apples'
+            },
+            {
+                'title': 'cheese'
+            },
+            {
+                'title': 'oranges'
+            },
+            {
+                'title': 'grapes'
+            }
+        ]
+        var filter = ['apples','grapes']
+        var acceptedObject = [ { title: 'apples' }, { title: 'grapes' } ]
+        it('should filter things', function(done){
+            gs.filter(initialObject, filter, function(err, result){
+                assert.deepEqual(result, acceptedObject)
+                done()
+            })
+        })
+    })
 })

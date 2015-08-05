@@ -358,6 +358,7 @@ describe('gitscrub', function() {
         })
     })
     describe('#filter', function(){
+        this.timeout(30000)
         var initialObject = 
         [
             {
@@ -380,6 +381,23 @@ describe('gitscrub', function() {
                 assert.deepEqual(result, acceptedObject)
                 done()
             })
+        })
+
+        it('should filter repos', function(done){
+            gs.setOptions({
+                filter: {
+                    enabled: true,
+                    repos: ['gitScrub']
+                }
+            })
+
+            gs.scrubADubDub(name, pwd, null, function(err, result) {
+                assert.equal(result[0].title, 'gitScrub')
+                done()
+            })  
+        })
+        after(function(){
+            gs.reset()
         })
     })
 })

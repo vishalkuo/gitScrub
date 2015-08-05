@@ -384,14 +384,7 @@ describe('gitscrub', function() {
         })
 
         it('should filter repos', function(done){
-            gs.setOptions({
-                filter: {
-                    enabled: true,
-                    repos: ['gitScrub']
-                }
-            })
-
-            gs.scrubADubDub(name, pwd, null, function(err, result) {
+            gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(err, result) {
                 assert.equal(result[0].title, 'gitScrub')
                 done()
             })  

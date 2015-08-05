@@ -118,7 +118,6 @@ describe('gitscrub', function() {
                 for (var i = 0; i < result.length; i++) {
                     assert.equal(typeof result[i].headers, 'object')
                 }
-                console.log(result)
                 done()
             })
         })

@@ -1,6 +1,6 @@
 {
   "name": "gitscrub",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "scrub git to save time",
   "main": "app.js",
   "scripts": {

@@ -357,42 +357,42 @@ describe('gitscrub', function() {
             updateSort(sort)
         })
     })
-    describe('#filter', function(){
-        this.timeout(30000)
-        var initialObject = 
-        [
-            {
-                'title': 'apples'
-            },
-            {
-                'title': 'cheese'
-            },
-            {
-                'title': 'oranges'
-            },
-            {
-                'title': 'grapes'
-            }
-        ]
-        var filter = ['apples','grapes']
-        var acceptedObject = [ { title: 'apples' }, { title: 'grapes' } ]
-        it('should filter things', function(done){
-            gs.filter(initialObject, filter, function(err, result){
-                assert.deepEqual(result, acceptedObject)
-                done()
-            })
-        })
+    // describe('#filter', function(){
+    //     this.timeout(30000)
+    //     var initialObject = 
+    //     [
+    //         {
+    //             'title': 'apples'
+    //         },
+    //         {
+    //             'title': 'cheese'
+    //         },
+    //         {
+    //             'title': 'oranges'
+    //         },
+    //         {
+    //             'title': 'grapes'
+    //         }
+    //     ]
+    //     var filter = ['apples','grapes']
+    //     var acceptedObject = [ { title: 'apples' }, { title: 'grapes' } ]
+    //     it('should filter things', function(done){
+    //         gs.filter(initialObject, filter, function(err, result){
+    //             assert.deepEqual(result, acceptedObject)
+    //             done()
+    //         })
+    //     })
 
-        it('should filter repos', function(done){
-            gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(err, result) {
+    //     it('should filter repos', function(done){
+    //         gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(err, result) {
                 
-                assert.notEqual(err, true)
-                assert.equal(result[0].title, 'gitScrub')
-                done()
-            })  
-        })
-        after(function(){
-            gs.reset()
-        })
-    })
+    //             assert.notEqual(err, true)
+    //             assert.equal(result[0].title, 'gitScrub')
+    //             done()
+    //         })  
+    //     })
+    //     after(function(){
+    //         gs.reset()
+    //     })
+    // })
 })

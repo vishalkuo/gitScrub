@@ -233,30 +233,29 @@ describe('gitscrub', function() {
 
     describe('#options', function(){
         beforeEach(function(){
-            gs.resetOptions
+            gs.reset()
         })
-        it('should return an empty object on resetting options', function(done){
-            gs.getOptions(function(options){
-                assert.equal(false, Object.keys(options).length)
-                done()
-            })
+        it('should return an empty object on resetting options', function(){
+             var options = gs.getOptions()
+             assert.equal(false, Object.keys(options).length)
+
         })
 
-        it('should allow for setting of options', function(done){
+        it('should allow for setting of options', function(){
             optObject = {name:'test', option: 'testOption'}
             gs.setOptions(optObject)
-            gs.getOptions(function(options){
-                assert.deepEqual(options, optObject)
-                done()
-            })
+            var options = gs.getOptions()
+            assert.deepEqual(options, optObject)
+
+
         })
 
-        it('should allow for resetting of options', function(done){
+        it('should allow for resetting of options', function(){
             gs.resetOptions()
-            gs.getOptions(function(options){
-                assert.deepEqual({}, options)
-                done()
-            })
+            var options = gs.getOptions()
+            assert.deepEqual({}, options)
+
+
         })
         //THROWING THIS ONE IN THERE
         it('this is checking is undefined', function(){
@@ -357,42 +356,42 @@ describe('gitscrub', function() {
             updateSort(sort)
         })
     })
-    // describe('#filter', function(){
-    //     this.timeout(30000)
-    //     var initialObject = 
-    //     [
-    //         {
-    //             'title': 'apples'
-    //         },
-    //         {
-    //             'title': 'cheese'
-    //         },
-    //         {
-    //             'title': 'oranges'
-    //         },
-    //         {
-    //             'title': 'grapes'
-    //         }
-    //     ]
-    //     var filter = ['apples','grapes']
-    //     var acceptedObject = [ { title: 'apples' }, { title: 'grapes' } ]
-    //     it('should filter things', function(done){
-    //         gs.filter(initialObject, filter, function(err, result){
-    //             assert.deepEqual(result, acceptedObject)
-    //             done()
-    //         })
-    //     })
+     describe('#filter', function(){
+         this.timeout(30000)
+         var initialObject =
+         [
+             {
+                 'title': 'apples'
+             },
+             {
+                 'title': 'cheese'
+             },
+             {
+                 'title': 'oranges'
+             },
+             {
+                 'title': 'grapes'
+             }
+         ]
+         var filter = ['apples','grapes']
+         var acceptedObject = [ { title: 'apples' }, { title: 'grapes' } ]
+         it('should filter things', function(done){
+             gs.filter(initialObject, filter, function(err, result){
+                 assert.deepEqual(result, acceptedObject)
+                 done()
+             })
+         })
 
-    //     it('should filter repos', function(done){
-    //         gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(err, result) {
-                
-    //             assert.notEqual(err, true)
-    //             assert.equal(result[0].title, 'gitScrub')
-    //             done()
-    //         })  
-    //     })
-    //     after(function(){
-    //         gs.reset()
-    //     })
-    // })
+         it('should filter repos', function(done){
+             gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(result, err) {
+
+                 assert.notEqual(err, true)
+                 assert.equal(result[0].title, 'gitScrub')
+                 done()
+             })
+         })
+         after(function(){
+             gs.reset()
+         })
+     })
 })

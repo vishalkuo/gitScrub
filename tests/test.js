@@ -381,14 +381,14 @@ describe('gitscrub', function() {
                  done()
              })
          })
-
-         it('should filter repos', function(done){
-             gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(result, err) {
-                 assert.notEqual(err, true)
-                 assert.equal(result.length, 1)
-                 done()
-             })
-         })
+         //
+         //it('should filter repos', function(done){
+         //    gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(result, err) {
+         //        assert.notEqual(err, true)
+         //        assert.equal(result.length, 1)
+         //        done()
+         //    })
+         //})
          after(function(){
              gs.reset()
          })

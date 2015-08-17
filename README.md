@@ -61,7 +61,7 @@ gitscrub.scrubadubdub(secret.username, secret.password, options, function(data){
 ```
 
 ## About
-This is a formatted readme, it will look for ```##``` headers and parse them into objects to be added to a json array. In this case, this section should be added to about. Now I'm just rambling on to fill the about section.
+gitScrub was created with the intention of keeping personal websites up to date without having to manually enter new projects into them every time. The idea is that this npm module might run nightly, weekly, or monthly to produce a json object which will get included on the front-end of a website. Using a framework such as angular, the object can quickly be iterated through to produce a formatted list of all your projects to date.
 
 ## Dates
 July 2015 - Present

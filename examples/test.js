@@ -12,8 +12,6 @@ var filter = []
 // ]
 
 /* istanbul ignore next */
-//gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
-//    console.log(data)
-//})
-
-gitscrub.reset()
+gitscrub.scrubADubDub(secret.username, secret.password, {select: true}, function(data, err){
+    console.log(data)
+})

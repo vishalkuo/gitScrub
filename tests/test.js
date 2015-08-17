@@ -14,6 +14,9 @@ var name = (typeof secret === 'undefined') ? process.env.name : secret.username
 var pwd = (typeof secret === 'undefined') ? process.env.password : secret.password
 
 describe('gitscrub', function() {
+    before(function(){
+        gs.reset()
+    })
     //AUTH
     describe('#authenticate', function() {
         it('should return false when authenticated with bad credentials', function(done) {
@@ -356,41 +359,8 @@ describe('gitscrub', function() {
             updateSort(sort)
         })
     })
-     describe('#filter', function(){
-         this.timeout(30000)
-         var initialObject =
-         [
-             {
-                 'title': 'apples'
-             },
-             {
-                 'title': 'cheese'
-             },
-             {
-                 'title': 'oranges'
-             },
-             {
-                 'title': 'grapes'
-             }
-         ]
-         var filter = ['apples','grapes']
-         var acceptedObject = [ { title: 'apples' }, { title: 'grapes' } ]
-         it('should filter things', function(done){
-             gs.filter(initialObject, filter, function(err, result){
-                 assert.deepEqual(result, acceptedObject)
-                 done()
-             })
-         })
-         //
-         //it('should filter repos', function(done){
-         //    gs.scrubADubDub(name, pwd, {'filter': {'enabled': true,'repos': ['gitScrub']}}, function(result, err) {
-         //        assert.notEqual(err, true)
-         //        assert.equal(result.length, 1)
-         //        done()
-         //    })
-         //})
-         after(function(){
-             gs.reset()
-         })
-     })
+    after(function(){
+        gs.reset()
+    })
 })
+

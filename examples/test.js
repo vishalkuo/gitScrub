@@ -12,20 +12,8 @@ var filter = []
 // ]
 
 /* istanbul ignore next */
+//gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
+//    console.log(data)
+//})
 
-var options = gitscrub.getOptions()
-gitscrub.setOptions({'filter': {
-    'enabled': true,
-    'repos': [
-        'gitScrub'
-    ]
-}
-})
-
-gitscrub.scrubADubDub(secret.username, secret.password, null, function(result, err) {
-    console.log(result)
-})
-
-rest.get().on('complete', function(data){
-    console.log(data)
-})
+gitscrub.reset()

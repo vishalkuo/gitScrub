@@ -326,6 +326,7 @@ describe('gitscrub', function() {
 
         it('should sort when the wizards require it to', function(done){
             sort.enabled = true
+            sort.alphabetical = true
             sort.reverse = false
             updateSort(sort)
             gs.sort(unsortedArray, function(err, result){

@@ -1,5 +1,16 @@
 {
   "enabled": true,
-  "alphabetical": true,
-  "reverse": false
+  "alphabetical": false,
+  "reverse": false,
+  "custom": [
+    "gitScrub",
+    "FuturesRevealed",
+    "Summon (A.K.A. Genie)",
+    "pasteDump",
+    "Grumble",
+    "dinnerBell",
+    "arduinoBrakelightBackpack",
+    "dotDash",
+    "StarRush"
+  ]
 }

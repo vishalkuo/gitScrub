@@ -12,6 +12,12 @@ var filter = []
 // ]
 
 /* istanbul ignore next */
-gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
-    console.log(data)
+//gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
+//    console.log(data)
+//})
+
+gitscrub.setSortOptions({"custom": [{title: 'Bananas'}, {title: 'Apples'}, {title: 'Cars'}]})
+gitscrub.customSort(['Cars', 'Apples', 'Bananas'], function(ret){
+    console.log(ret)
+    done()
 })

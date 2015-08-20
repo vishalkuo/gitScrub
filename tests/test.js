@@ -358,11 +358,20 @@ describe('gitscrub', function() {
             done()
         })
 
+        it('should allow for custom sorting', function(done){
+            gs.setSortOptions({"custom": ['Cars', 'Apples', 'Bananas']})
+            gs.customSort([{title: 'Bananas'}, {title: 'Apples'}, {title: 'Cars'}], function(ret){
+                assert.deepEqual(ret, [ { title: 'Cars' }, { title: 'Apples' }, { title: 'Bananas' } ])
+                done()
+            })
+        })
+
         after(function(){
             sort = initialSettings
             updateSort(sort)
         })
     })
+
     after(function(){
         gs.reset()
     })

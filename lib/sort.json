@@ -3,14 +3,14 @@
   "alphabetical": false,
   "reverse": false,
   "custom": [
-    "gitScrub",
-    "FuturesRevealed",
-    "Summon (A.K.A. Genie)",
-    "pasteDump",
-    "Grumble",
-    "dinnerBell",
-    "arduinoBrakelightBackpack",
-    "dotDash",
-    "StarRush"
+    {
+      "title": "Bananas"
+    },
+    {
+      "title": "Apples"
+    },
+    {
+      "title": "Cars"
+    }
   ]
 }

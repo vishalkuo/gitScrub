@@ -213,7 +213,6 @@ describe('gitscrub', function() {
             gs.authenticate(name, pwd, function(){
                 gs.selectRepos(['gitScrub'], 'repos_to_scrub.json', function(meh, mehmeh){
                     gs.scrubADubDub(name, pwd, ['select'], function(result, err){
-                        console.log(result)
                         assert.equal(result[0]['title'], 'gitScrub')
                         assert.equal(undefined, err)
                         done()

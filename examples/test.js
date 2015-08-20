@@ -15,9 +15,10 @@ var filter = []
 //gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
 //    console.log(data)
 //})
+//gitscrub.selectRepos(['gitScrub'], null, function(err, result){
+//    gitscrub.scrubADubDub(secret.username, secret.password, ['select'], function(result, err) {
+//    })
+//})
 
-gitscrub.setSortOptions({"custom": [{title: 'Bananas'}, {title: 'Apples'}, {title: 'Cars'}]})
-gitscrub.customSort(['Cars', 'Apples', 'Bananas'], function(ret){
-    console.log(ret)
-    done()
-})
+gitscrub.reset()
+

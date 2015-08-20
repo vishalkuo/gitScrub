@@ -17,10 +17,11 @@
     "rsvp": "^3.0.18"
   },
   "devDependencies": {
-    "istanbul": "^0.3.17",
     "coveralls": "^2.11.3",
+    "istanbul": "^0.3.17",
+    "mocha": "^1.17.1",
     "mocha-lcov-reporter": "0.0.2",
-    "mocha": "^1.17.1"
+    "sinon": "^1.16.0"
   },
   "repository": {
     "type": "git",

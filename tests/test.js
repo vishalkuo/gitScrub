@@ -3,6 +3,9 @@ var fs = require('fs')
 var path = require('path')
 var assert = require('assert')
 var sort = require('../lib/sort.json')
+var sinon = require('sinon')
+var rester = require('../lib/restadapter')
+
 var secret = undefined
 try {
     secret = require('../lib/secret')

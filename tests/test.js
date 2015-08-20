@@ -208,6 +208,19 @@ describe('gitscrub', function() {
             })
         })
 
+        it ('should work with scrubadubdub', function(done){
+            this.timeout(15000)
+            gs.authenticate(name, pwd, function(){
+                gs.selectRepos(['gitScrub'], 'repos_to_scrub.json', function(meh, mehmeh){
+                    gs.scrubADubDub(name, pwd, ['select'], function(result, err){
+                        assert.equal(result[0]['title'], 'gitScrub')
+                        assert.equal(undefined, err)
+                        done()
+                    })
+                })
+            })
+        })
+
         after(function(){
             gs.reset()
         })

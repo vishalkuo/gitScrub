@@ -12,13 +12,17 @@ var filter = []
 // ]
 
 /* istanbul ignore next */
-//gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
-//    console.log(data)
-//})
+gitscrub.scrubADubDub(secret.username, secret.password, null, function(data, err){
+    console.log(JSON.stringify(data, null, 1))
+})
 //gitscrub.selectRepos(['gitScrub'], null, function(err, result){
 //    gitscrub.scrubADubDub(secret.username, secret.password, ['select'], function(result, err) {
 //    })
 //})
-
-gitscrub.reset()
+//
+//gitscrub.authenticate(secret.username, secret.password, function(done){
+//    gitscrub.getAllRepos({username: secret.username, password: secret.password}, function(val){
+//
+//    })
+//})
 

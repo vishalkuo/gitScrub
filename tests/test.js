@@ -3,8 +3,11 @@ var fs = require('fs')
 var path = require('path')
 var assert = require('assert')
 var sort = require('../lib/sort.json')
-var sinon = require('sinon')
 var rester = require('../lib/restadapter')
+var nock = require('nock')
+var ALL_EXPECTED_REPOS = require('./sample_all_repos.json')
+var EXPECTED_SCRUB = require('./scrubadubdub.json')
+var GITHUB_API_TEST_URL = 'https://api.github.com'
 
 var secret = undefined
 try {
@@ -18,6 +21,16 @@ var pwd = (typeof secret === 'undefined') ? process.env.password : secret.passwo
 
 describe('gitscrub', function() {
     before(function(){
+        nock(GITHUB_API_TEST_URL)
+            .get('/users/')
+            .reply(404, {
+                message: 'Not Found',
+                documentation_url: 'https://developer.github.com/v3'
+            })
+            .get('/users/' + secret.username)
+            .reply(200, {
+                login: 'Gucci'
+            })
         gs.reset()
     })
     //AUTH
@@ -38,6 +51,17 @@ describe('gitscrub', function() {
 
     //GET ALL
     describe('#getAllRepos', function() {
+            before(function(){
+                nock(GITHUB_API_TEST_URL)
+                    .get('/users/')
+                    .reply(404, {
+                        message: 'Not Found',
+                        documentation_url: 'https://developer.github.com/v3'
+                    })
+                    .get('/users/' + secret.username + '/repos')
+                    .times(2)
+                    .reply(200, ALL_EXPECTED_REPOS)
+            })
             beforeEach(function() {
                 gs.reset()
             })
@@ -104,6 +128,13 @@ describe('gitscrub', function() {
         })
         //Does gitscrub reset
     describe('#reset', function() {
+            before(function(){
+                nock(GITHUB_API_TEST_URL)
+                    .get('/users/' + secret.username)
+                    .reply(200, {
+                        login: 'Gucci'
+                    })
+            })
             beforeEach(function() {
                 gs.reset()
             })
@@ -118,7 +149,25 @@ describe('gitscrub', function() {
         })
         //Does it scrubadubdub
     describe('#scrubadubdub', function() {
-        this.timeout(30000)
+        this.timeout(15000)
+
+        before(function(){
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/')
+                .reply(404, {
+                    message: 'Not Found',
+                    documentation_url: 'https://developer.github.com/v3'
+                })
+                .get('/users/' + secret.username)
+                .reply(200, {
+                    login: 'Gucci'
+                })
+                .get('/users/' + secret.username + '/repos')
+                .reply(200, ALL_EXPECTED_REPOS)
+                .get('/repos/' + secret.username + '/./readme')
+                .reply(200, {test: 'lol'})
+        })
+
         beforeEach(function() {
             gs.reset()
         })

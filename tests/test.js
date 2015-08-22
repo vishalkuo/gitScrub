@@ -152,6 +152,7 @@ describe('gitscrub', function() {
         this.timeout(15000)
 
         before(function(){
+            console.log(ALL_EXPECTED_REPOS.length)
             nock(GITHUB_API_TEST_URL)
                 .get('/users/')
                 .reply(404, {
@@ -165,6 +166,7 @@ describe('gitscrub', function() {
                 .get('/users/' + secret.username + '/repos')
                 .reply(200, ALL_EXPECTED_REPOS)
                 .get('/repos/' + secret.username + '/./readme')
+                .times(ALL_EXPECTED_REPOS.length)
                 .reply(200, {test: 'lol'})
         })
 

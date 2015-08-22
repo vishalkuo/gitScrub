@@ -151,30 +151,6 @@ describe('gitscrub', function() {
         //Does it scrubadubdub
     describe('#scrubadubdub', function() {
         this.timeout(15000)
-
-        //    nock(GITHUB_API_TEST_URL)
-        //        .get('/users/' + secret.username).times(2)
-        //        .reply(200, {
-        //            login: 'Gucci'
-        //        })
-        //        .get('/users/' + secret.username + '/repos')
-        //        .reply(200, ALL_EXPECTED_REPOS)
-        //        .filteringPath(function(path){
-        //            return '/'
-        //        })
-        //        .get('/')
-        //        .times(ALL_EXPECTED_REPOS.length - ALL_READMES.length)
-        //        .reply(404, {
-        //            message: 'Not Found',
-        //            documentation_url: 'https://developer.github.com/v3'
-        //        })
-        //        .get('/')
-        //        .reply(200, ALL_READMES[0])
-        //        .get('/')
-        //        .reply(200, ALL_READMES[1])
-        //        .get('/')
-        //        .reply(200, ALL_READMES[2])
-
         beforeEach(function() {
             gs.reset()
         })
@@ -312,8 +288,7 @@ describe('gitscrub', function() {
                 fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
                     assert.notEqual(err, true)
                     var reposToScrub = JSON.parse(data)
-                    assert.equal(reposToScrub.repos[0], 'AngelHack')
-                    assert.equal(reposToScrub.repos[1], 'summon')
+                    assert.equal(reposToScrub.repos[0], 'gitScrub')
                     done()
                 })
 
@@ -321,6 +296,24 @@ describe('gitscrub', function() {
         })
 
         it ('should work with scrubadubdub', function(done){
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .times(2)
+                .reply(200, {
+                    login: 'Gucci'
+                })
+                .get('/users/' + name + '/repos')
+                .reply(200, ALL_EXPECTED_REPOS)
+                .filteringPath(function(path){
+                    if (path.indexOf('readme') > -1) {
+                        return '/test'
+                    }
+                    return path
+                })
+                .get('/test').times(ALL_EXPECTED_REPOS.length - 1)
+                .reply(200, ALL_READMES[0])
+                .get('/test')
+                .reply(200, ALL_READMES[1])
             this.timeout(15000)
             gs.authenticate(name, pwd, function(){
                 gs.selectRepos(['gitScrub'], 'repos_to_scrub.json', function(meh, mehmeh){

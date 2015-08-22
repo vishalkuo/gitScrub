@@ -85,5 +85,6 @@ It is reccomended that gitScrub be run as a cronjob (nightly or weekly) and its 
 * [Chris Grandoit](https://twitter.com/cgrandoit) (for inspiration)
 * Vishal Kuo
 * 
+
 ## Milstones
 * 479 Downloads: Aug 21, 2015

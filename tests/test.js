@@ -6,6 +6,7 @@ var sort = require('../lib/sort.json')
 var rester = require('../lib/restadapter')
 var nock = require('nock')
 var ALL_EXPECTED_REPOS = require('./sample_all_repos.json')
+var ALL_READMES = require('./all_readmes.json')
 var EXPECTED_SCRUB = require('./scrubadubdub.json')
 var GITHUB_API_TEST_URL = 'https://api.github.com'
 
@@ -27,7 +28,7 @@ describe('gitscrub', function() {
                 message: 'Not Found',
                 documentation_url: 'https://developer.github.com/v3'
             })
-            .get('/users/' + secret.username)
+            .get('/users/' + name)
             .reply(200, {
                 login: 'Gucci'
             })
@@ -58,7 +59,7 @@ describe('gitscrub', function() {
                         message: 'Not Found',
                         documentation_url: 'https://developer.github.com/v3'
                     })
-                    .get('/users/' + secret.username + '/repos')
+                    .get('/users/' + name + '/repos')
                     .times(2)
                     .reply(200, ALL_EXPECTED_REPOS)
             })
@@ -130,7 +131,7 @@ describe('gitscrub', function() {
     describe('#reset', function() {
             before(function(){
                 nock(GITHUB_API_TEST_URL)
-                    .get('/users/' + secret.username)
+                    .get('/users/' + name)
                     .reply(200, {
                         login: 'Gucci'
                     })
@@ -151,29 +152,49 @@ describe('gitscrub', function() {
     describe('#scrubadubdub', function() {
         this.timeout(15000)
 
-        before(function(){
-            console.log(ALL_EXPECTED_REPOS.length)
-            nock(GITHUB_API_TEST_URL)
-                .get('/users/')
-                .reply(404, {
-                    message: 'Not Found',
-                    documentation_url: 'https://developer.github.com/v3'
-                })
-                .get('/users/' + secret.username)
-                .reply(200, {
-                    login: 'Gucci'
-                })
-                .get('/users/' + secret.username + '/repos')
-                .reply(200, ALL_EXPECTED_REPOS)
-                .get('/repos/' + secret.username + '/./readme')
-                .times(ALL_EXPECTED_REPOS.length)
-                .reply(200, {test: 'lol'})
-        })
+        //    nock(GITHUB_API_TEST_URL)
+        //        .get('/users/' + secret.username).times(2)
+        //        .reply(200, {
+        //            login: 'Gucci'
+        //        })
+        //        .get('/users/' + secret.username + '/repos')
+        //        .reply(200, ALL_EXPECTED_REPOS)
+        //        .filteringPath(function(path){
+        //            return '/'
+        //        })
+        //        .get('/')
+        //        .times(ALL_EXPECTED_REPOS.length - ALL_READMES.length)
+        //        .reply(404, {
+        //            message: 'Not Found',
+        //            documentation_url: 'https://developer.github.com/v3'
+        //        })
+        //        .get('/')
+        //        .reply(200, ALL_READMES[0])
+        //        .get('/')
+        //        .reply(200, ALL_READMES[1])
+        //        .get('/')
+        //        .reply(200, ALL_READMES[2])
 
         beforeEach(function() {
             gs.reset()
         })
         it('should return all formatted readmes', function(done) {
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .reply(200, {
+                    login:'Gucci'
+                })
+                .get('/users/' + name + '/repos')
+                .reply(200, ALL_EXPECTED_REPOS)
+                .filteringPath(function(path){
+                    if (path.indexOf('readme') > -1) {
+                        return '/test'
+                    }
+                    return path
+                })
+                .get('/test').times(ALL_EXPECTED_REPOS.length)
+                .reply(200, ALL_READMES[0])
+
             gs.scrubADubDub(name, pwd, null, function(result, err) {
                 assert.equal(typeof result, 'object')
                 for (var i = 0; i < result.length; i++) {
@@ -183,6 +204,12 @@ describe('gitscrub', function() {
             })
         })
         it('should return an error object when something goes wrong', function(done) {
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .reply(404, {
+                    message: 'Not Found',
+                    documentation_url: 'https://developer.github.com/v3'
+                })
             gs.scrubADubDub('', null, null, function(result, err) {
                 assert.equal(typeof result, 'undefined')
                 assert.equal('Bad Credentials!', err)
@@ -194,6 +221,13 @@ describe('gitscrub', function() {
     describe('#grabReadMeAtRepo', function() {
         var repoList
         before(function(done) {
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .reply(200, {
+                    login:'Gucci'
+                })
+                .get('/users/' + name + '/repos')
+                .reply(200, ALL_EXPECTED_REPOS)
             gs.authenticate(name, pwd, function(result) {
                 gs.getAllRepos({
                     username: name,
@@ -206,6 +240,12 @@ describe('gitscrub', function() {
         })
 
         it('should be able to grab a certain repo\'s readme', function(done) {
+            nock(GITHUB_API_TEST_URL)
+                .filteringPath(function(path){
+                    return '/test'
+                })
+                .get('/test')
+                .reply(200, ALL_READMES[0])
             gs.grabReadMeAtRepo(repoList[1].name, function(result) {
                 assert.equal(result.name, 'README.md')
                 assert.equal(result.path, 'README.md')
@@ -214,6 +254,15 @@ describe('gitscrub', function() {
         })
 
         it('should return an empty string with no readme available', function(done) {
+            nock(GITHUB_API_TEST_URL)
+                .filteringPath(function(path){
+                    return '/test'
+                })
+                .get('/test')
+                .reply(404, {
+                    message: 'Not Found',
+                    documentation_url: 'https://developer.github.com/v3'
+                })
             var index = -1
             for (var i = 0; i < repoList.length; i++) {
                 if (repoList[i].name === 'textBasedBattleShip') {
@@ -239,6 +288,11 @@ describe('gitscrub', function() {
         })
 
         it('should return an error when no array is provided', function(done) {
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .reply(200, {
+                    login: 'Gucci'
+                })
             gs.selectRepos('test', null, function(err, result) {
                 assert.equal('Argument must be an array of repos to scrub', err)
                 assert.equal(result, null)
@@ -246,7 +300,14 @@ describe('gitscrub', function() {
             })
         })
         it('should write to a file when passed a name', function(done) {
-            gs.selectRepos(['AngelHack', 'summon'], null, function(err, result) {
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .reply(200, {
+                    login: 'Gucci'
+                })
+                .get('/users/' + name + '/repos')
+                .reply(200, ALL_EXPECTED_REPOS)
+            gs.selectRepos(['gitScrub'], null, function(err, result) {
                 assert.equal(result, true)
                 fs.readFile(path.join(__dirname, '../lib', gs.standardFileName), 'utf-8', function(err, data) {
                     assert.notEqual(err, true)

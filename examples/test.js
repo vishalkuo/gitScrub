@@ -22,17 +22,18 @@ var filter = []
 //
 gitscrub.authenticate(secret.username, secret.password, function(done){
     gitscrub.getAllRepos({username: secret.username, password: secret.password}, function(val){
-        var test = []
-        gitscrub.grabReadMeAtRepo('gitScrub', function(data){
-            test.push(data)
-            gitscrub.grabReadMeAtRepo('FuturesRevealed', function(data1){
-                test.push(data1)
-                gitscrub.grabReadMeAtRepo('arduinoBrakelightBackpack', function(data2){
-                    test.push(data2)
-                    console.log(test)
-                })
-            })
-        })
+        console.log(JSON.stringify(val, null, 1))
+        //var test = []
+        //gitscrub.grabReadMeAtRepo('gitScrub', function(data){
+        //    test.push(data)
+        //    gitscrub.grabReadMeAtRepo('FuturesRevealed', function(data1){
+        //        test.push(data1)
+        //        gitscrub.grabReadMeAtRepo('arduinoBrakelightBackpack', function(data2){
+        //            test.push(data2)
+        //            console.log(JSON.stringify(test, null, 1))
+        //        })
+        //    })
+        //})
     })
 })
 

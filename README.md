@@ -86,5 +86,5 @@ It is reccomended that gitScrub be run as a cronjob (nightly or weekly) and its 
 * Vishal Kuo
 * 
 
-## Milstones
+## Milestones
 * 528 Downloads: Aug 22, 2015

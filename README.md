@@ -87,4 +87,4 @@ It is reccomended that gitScrub be run as a cronjob (nightly or weekly) and its 
 * 
 
 ## Milstones
-* 479 Downloads: Aug 21, 2015
+* 528 Downloads: Aug 22, 2015

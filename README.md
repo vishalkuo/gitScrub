@@ -30,6 +30,7 @@ secret.js #Or whatever you named your username/password file
 ```Javascript
 var gs = require('gitscrub')
 var secret = require('./path_to_secret.js')
+//Options is a WIP
 var options = null
 //This is the most basic configuration
 gitscrub.scrubadubdub(secret.username, secret.password, options, function(data){

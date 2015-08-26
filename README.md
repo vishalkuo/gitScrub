@@ -7,8 +7,6 @@
 
 [![NPM](https://nodei.co/npm/gitscrub.png?compact=true)](https://nodei.co/npm/gitscrub/)
 
-[![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
-
 ## Installation
 * In your project directory: ```npm install --save-dev gitscrub```
 * In your project: ```var gs = require('gitscrub')```

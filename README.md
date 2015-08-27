@@ -113,4 +113,4 @@ gitscrub can be heavy to run (as much as two seconds to grab 15 repos due to the
 * 
 
 ## Milestones
-* 650 Downloads: Aug 26, 2015
+* 713 Downloads: Aug 26, 2015

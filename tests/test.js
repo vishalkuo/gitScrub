@@ -5,10 +5,11 @@ var assert = require('assert')
 var sort = require('../lib/sort.json')
 var rester = require('../lib/restadapter')
 var nock = require('nock')
-var ALL_EXPECTED_REPOS = require('./sample_all_repos.json')
-var ALL_READMES = require('./all_readmes.json')
-var EXPECTED_SCRUB = require('./scrubadubdub.json')
-var GITHUB_API_TEST_URL = 'https://api.github.com'
+const ALL_EXPECTED_REPOS = require('./sample_all_repos.json')
+const ALL_READMES = require('./all_readmes.json')
+const EXPECTED_SCRUB = require('./scrubadubdub.json')
+const EXPECTED_LICENSE = require('./licenses.json')
+const GITHUB_API_TEST_URL = 'https://api.github.com'
 
 var secret = undefined
 try {
@@ -171,7 +172,7 @@ describe('gitscrub', function() {
                 .get('/test').times(ALL_EXPECTED_REPOS.length)
                 .reply(200, ALL_READMES[0])
 
-            gs.scrubADubDub(name, pwd, null, function(result, err) {
+            gs.scrubADubDub(name, null, null, function(result, err) {
                 assert.equal(typeof result, 'object')
                 for (var i = 0; i < result.length; i++) {
                     assert.equal(typeof result[i].headers, 'object')
@@ -491,6 +492,42 @@ describe('gitscrub', function() {
         after(function(){
             sort = initialSettings
             updateSort(sort)
+        })
+    })
+
+    describe('#grabOtherFile', function(){
+        it('should be able to grab other files', function(done){
+            nock(GITHUB_API_TEST_URL)
+                .get('/users/' + name)
+                .reply(200, {
+                    login:'Gucci'
+                })
+                .get('/users/' + name + '/repos')
+                .reply(200, ALL_EXPECTED_REPOS)
+                .filteringPath(function(path){
+                    if (path.indexOf('readme') > -1) {
+                        return '/test'
+                    } else if (path.indexOf('license') > -1){
+                        return '/lic'
+                    }
+                    return path
+                })
+                .get('/test').times(ALL_EXPECTED_REPOS.length)
+                .reply(200, ALL_READMES[0])
+                .get('/lic').times(ALL_EXPECTED_REPOS.length)
+                .reply(200, EXPECTED_LICENSE)
+
+            gs.scrubADubDub(name, null, null, function(g, err){
+                gs.setOptions({customFile: 'license'})
+                gs.grabAllReadmes(function(res){
+                    for (obj in res){
+                        assert.equal(res[obj].split('\n')[0],'The MIT License (MIT)')
+                    }
+
+
+                    done()
+                })
+            })
         })
     })
 

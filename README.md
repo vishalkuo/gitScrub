@@ -5,8 +5,6 @@
 [![Coverage Status](https://coveralls.io/repos/vishalkuo/gitScrub/badge.svg?branch=master&service=github)](https://coveralls.io/github/vishalkuo/gitScrub?branch=master)
 [![Dependencies](https://david-dm.org/vishalkuo/gitscrub.svg)](https://david-dm.org/vishalkuo/gitscrub.svg)
 
-[![NPM](https://nodei.co/npm/gitscrub.png?compact=true)](https://nodei.co/npm/gitscrub/)
-
 ## Installation
 * In your project directory: ```npm install --save-dev gitscrub```
 * In your project: ```var gs = require('gitscrub')```
@@ -40,8 +38,8 @@ gitscrub.scrubadubdub(secret.username, secret.password, options, function(data){
 ```
 
 ## GitScrub Format
-* Always start headers with ```## ``` (space included)
-* Title will always start with ```# ```(space included)
+* Always start headers with ```##``` with a space following afterwards 
+* Title will always start with ```#``` with a space following afterwards
 * Jot notes will be parsed into their own array inside of each header object. Be prepared for that
 * Headers ```###``` or longer will simply be included in the most recent header object.
 * Code blocks are not formatted yet. This is a feature that welcomes a PR. 
@@ -97,6 +95,8 @@ July 2015 - Present
 ## Links
 http://www.github.com/vishalkuo.gitScrub
 
+https://www.npmjs.com/package/gitscrub
+
 ## Technologies
 * nodeJS
 * Github API
@@ -110,7 +110,6 @@ gitscrub can be heavy to run (as much as two seconds to grab 15 repos due to the
 * [Jerry Wang](https://github.com/yisenjerrywang)
 * [Chris Grandoit](https://twitter.com/cgrandoit) (for inspiration)
 * Vishal Kuo
-* 
 
 ## Milestones
 * 713 Downloads: Aug 26, 2015

@@ -79,11 +79,24 @@ gitscrub.setSortOptions({'custom': [
     'StarRush']})
 gitscrub.scrubADubDub(secret.username, secret.password, null, function(result, err){
     gitscrub.customSort(result, function(done){
-        //Data is outputted like this to easily be loaded into an HTML page and rendered usign Angular
+        //Data is outputted like this to easily be loaded into an HTML page and rendered using Angular
         console.log('data = ' + JSON.stringify(done,null, 1))
     })
 })
 ```
+
+### Selecting files other than README
+```Javascript
+var gitscrub = require('gitscrub')
+var secret = require('./secret')
+//List your repos exact titles below
+//This will select all files named license.md and parse them as the typical readme markdown is parsed
+gitscrub.setOptions({customFile: 'license'})
+gitscrub.scrubADubDub(secret.username, secret.password, null, function(result, err){
+    console.log('data = ' + JSON.stringify(done,null, 1))
+})
+```
+
 More info/beta stuff in the examples and tests folders
 
 ## About

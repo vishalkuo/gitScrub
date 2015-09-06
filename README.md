@@ -90,7 +90,7 @@ gitscrub.scrubADubDub(secret.username, secret.password, null, function(result, e
 var gitscrub = require('gitscrub')
 var secret = require('./secret')
 //List your repos exact titles below
-//This will select all files named license.md and parse them as the typical readme markdown is parsed
+//This will select all files named license.md and parse them just like the readme is
 gitscrub.setOptions({customFile: 'license'})
 gitscrub.scrubADubDub(secret.username, secret.password, null, function(result, err){
     console.log('data = ' + JSON.stringify(done,null, 1))

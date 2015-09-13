@@ -106,9 +106,7 @@ gitScrub was created with the intention of keeping personal websites up to date 
 July 2015 - Present
   
 ## Links
-http://www.github.com/vishalkuo.gitScrub
-
-https://www.npmjs.com/package/gitscrub
+* https://www.npmjs.com/package/gitscrub
 
 ## Technologies
 * nodeJS
@@ -125,4 +123,4 @@ gitscrub can be heavy to run (as much as two seconds to grab 15 repos due to the
 * Vishal Kuo
 
 ## Milestones
-* 921 Downloads: Sep 9, 2015
+* 960 Downloads: Sep 13, 2015

@@ -6,11 +6,7 @@ value = undefined
 objArr = []
     //Temp filter object
 var filter = []
-
-gitscrub.setOptions({customFile: 'license'})
-
 gitscrub.scrubADubDub(secret.username, secret.password, null, function(done, err){
-    gitscrub.grabAllReadmes(function(done){
-        console.log(JSON.stringify(done, null, 1))
-    })
+    console.log(done)
+    console.log(err)
 })

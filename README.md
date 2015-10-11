@@ -123,4 +123,4 @@ gitscrub can be heavy to run (as much as two seconds to grab 15 repos due to the
 * Vishal Kuo
 
 ## Milestones
-* 1105 Downloads: Sep 26, 2015
+* 1250 Downloads: Oct 10, 2015
